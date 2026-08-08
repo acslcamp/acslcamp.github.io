@@ -469,18 +469,23 @@ footer {
     }
 }
 
-/* Respect users who have asked the OS to minimise motion */
+/* Respect users who have asked the OS to minimise motion. Mute the
+   automatic scroll-reveal and border-pulse animations (the kind of motion
+   prefers-reduced-motion is meant to suppress), but leave small,
+   user-triggered hover feedback (card/button lift) alone so hovering still
+   feels responsive instead of teleporting. */
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    html {
         scroll-behavior: auto !important;
     }
-    .reveal {
+    .reveal,
+    .reveal.active {
+        animation: none !important;
         opacity: 1;
+        transform: none;
+    }
+    .glass-card::after {
+        animation: none !important;
     }
 }
 
